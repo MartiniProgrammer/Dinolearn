@@ -58,7 +58,7 @@ export async function getTodayReviewQueue(userId: string) {
   const dueCards = await prisma.sRSCard.findMany({
     where: {
       userId,
-      nextReview: {
+      nextReviewAt: {
         gte: today,
         lt: tomorrow,
       },
