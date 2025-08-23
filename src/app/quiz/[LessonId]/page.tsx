@@ -8,15 +8,6 @@ export default function QuizPage({ params }: { params: { lessonId: string } }) {
   const [chosen, setChosen] = useState<string[]>([]);
   const [result, setResult] = useState<string>("");
 
-  // quick fetch question list:
-  useEffect(() => {
-    (async () => {
-      const r = await fetch(`/api/quiz/first/${params.lessonId}`);
-      const d = await r.json();
-      setQ(d.question);
-    })();
-  }, [params.lessonId]);
-
   async function submit() {
     if (!q) return;
     const r = await fetch("/api/quiz/answer", {
