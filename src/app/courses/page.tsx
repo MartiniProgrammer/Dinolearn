@@ -25,7 +25,7 @@ export default async function CoursesPage() {
         {courses.map((c: CourseCard) => (
           <Link
             key={c.id}
-            href={`/course/${c.slug}`}
+            href={`/courses/${c.slug}`}
             className="border rounded-2xl p-4 hover:shadow"
           >
             <h2 className="text-xl font-bold" style={{ color: c.color ?? undefined }}>
