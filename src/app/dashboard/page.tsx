@@ -1,6 +1,8 @@
 // src/app/dashboard/page.tsx
 import { prisma } from "@/lib/prisma";
-
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
+import { redirect } from "next/navigation";
 type Badge = {
   id: string;
   icon: string;
@@ -24,9 +26,12 @@ type UserWithProfile = {
 };
 
 export default async function Dashboard() {
-  // Haal user + profiel + badges op
+  const session = await getServerSession(authOptions);
+  if (!session?.user?.email) {
+    redirect("/auth/sign-in");
+  }
   const user: UserWithProfile | null = await prisma.user.findUnique({
-    where: { email: "demo@dinolearn.app" }, // of session.user.email als je auth hebt
+    where: { email: session.user.email },
     include: {
       profile: true,
       userBadges: { include: { badge: true } },
