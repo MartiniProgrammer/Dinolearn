@@ -1,6 +1,6 @@
-// SQLite lokaal (later Supabase/Postgres)
+// Supabase/Postgres database
 datasource db {
-  provider = "sqlite"
+  provider = "postgresql"
   url      = env("DATABASE_URL")
 }
 
