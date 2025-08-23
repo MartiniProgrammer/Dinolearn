@@ -17,7 +17,7 @@ export async function scheduleCard(
   isCorrect: boolean,
 ) {
  // Fetch existing card if present
-  const existing = await prisma.srsCard.findUnique({
+  const existing = await prisma.sRSCard.findUnique({
     where: { userId_questionId: { userId, questionId } },
   });
 
@@ -35,7 +35,7 @@ export async function scheduleCard(
   nextReviewAt.setDate(nextReviewAt.getDate() + intervalDays);
 
   // Upsert the card in the database
-  const card = await prisma.srsCard.upsert({
+  const card = await prisma.sRSCard.upsert({
     where: { userId_questionId: { userId, questionId } },
     update: { box, nextReviewAt },
     create: { userId, questionId, box, nextReviewAt },
@@ -55,7 +55,7 @@ export async function getTodayReviewQueue(userId: string) {
   const tomorrow = new Date(today);
   tomorrow.setDate(tomorrow.getDate() + 1);
 
-  const dueCards = await prisma.srsCard.findMany({
+  const dueCards = await prisma.sRSCard.findMany({
     where: {
       userId,
       nextReview: {
