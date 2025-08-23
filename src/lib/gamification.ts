@@ -31,6 +31,7 @@ export async function updateStreak(userId: string) {
     where: { userId },
     data: { streakCount: streak, longestStreak: longest, lastStudyAt: new Date() }
   });
+  await awardXP(userId, 5, "STREAK_BONUS");
   return streak;
 }
 
@@ -38,7 +39,7 @@ export async function applyQuizResult(opts: { userId: string; lessonId: string; 
   const p = await prisma.profile.findUnique({ where: { userId: opts.userId } });
   if (!p) throw new Error("Profile not found");
 
-  const xp = opts.isCorrect ? 10 : 0;
+  const xp = opts.isCorrect ? 10 : 3;
   const heartsDelta = opts.isCorrect ? 0 : -1;
 
   await prisma.attempt.create({
@@ -55,8 +56,7 @@ export async function applyQuizResult(opts: { userId: string; lessonId: string; 
     where: { userId: opts.userId },
     data: {
       xp: { increment: xp },
-      hearts: { increment: heartsDelta },
-      lastStudyAt: new Date()
+      hearts: { increment: heartsDelta }
     }
   });
 
@@ -72,9 +72,10 @@ export async function applyQuizResult(opts: { userId: string; lessonId: string; 
       update: { status: "COMPLETED", lastSeenAt: new Date() },
       create: { userId: opts.userId, lessonId: opts.lessonId, status: "COMPLETED", lastSeenAt: new Date() }
     });
+    await updateStreak(opts.userId);
+    await checkAnkyloBadges(opts.userId);
   }
 
-  await updateStreak(opts.userId);
   return { xpAdded: xp, hearts: (p.hearts + heartsDelta), completed: allAnswered };
 }
 
@@ -97,4 +98,36 @@ export async function grantBadge(userId: string, code: string) {
     update: {},
     create: { userId, badgeId: badge.id }
   });
+}
+
+async function checkAnkyloBadges(userId: string) {
+  const course = await prisma.course.findUnique({
+    where: { slug: "ankylosauridae-101" },
+    include: { modules: { include: { lessons: { include: { questions: true }, orderBy: { order: "asc" } } } } }
+  });
+  if (!course) return;
+  const lessons = course.modules.flatMap((m: any) => m.lessons).sort((a: any, b: any) => a.order - b.order);
+  const attempts = await prisma.attempt.findMany({
+    where: { userId, lessonId: { in: lessons.map((l: any) => l.id) } }
+  });
+
+  const calc = (subset: any[]) => {
+    let total = 0, correct = 0, complete = true;
+    for (const lesson of subset) {
+      const lAttempts = attempts.filter(a => a.lessonId === lesson.id);
+      if (lAttempts.length < lesson.questions.length) complete = false;
+      total += lesson.questions.length;
+      correct += lAttempts.filter(a => a.isCorrect).length;
+    }
+    return { complete, score: total ? correct / total : 0 };
+  };
+
+  const first3 = calc(lessons.slice(0, 3));
+  if (first3.complete && first3.score >= 0.6) await grantBadge(userId, "ANKYLO_NOVICE");
+
+  const last3 = calc(lessons.slice(3));
+  if (last3.complete && last3.score >= 0.8) await grantBadge(userId, "CLUB_TAIL_MASTER");
+
+  const all = calc(lessons);
+  if (all.complete && all.score >= 0.75) await grantBadge(userId, "ANKYLO_COMPLETIONIST");
 }
