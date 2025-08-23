@@ -75,7 +75,6 @@ export async function applyQuizResult(opts: { userId: string; lessonId: string; 
     await updateStreak(opts.userId);
     await checkAnkyloBadges(opts.userId);
   }
-
   return { xpAdded: xp, hearts: (p.hearts + heartsDelta), completed: allAnswered };
 }
 
