@@ -29,19 +29,19 @@ export default async function CoursesPage({
     ];
   }
 
-  const courses: CourseCard[] = process.env.DATABASE_URL
-    ? await prisma.course.findMany({
-        where,
-        orderBy: { order: "asc" },
-        select: {
-          id: true,
-          slug: true,
-          title: true,
-          summary: true,
-          color: true
-        }
-      })
-    : [];
+  const courses: CourseCard[] = await prisma.course
+    .findMany({
+      where,
+      orderBy: { order: "asc" },
+      select: {
+        id: true,
+        slug: true,
+        title: true,
+        summary: true,
+        color: true,
+      },
+    })
+    .catch(() => [] as CourseCard[]);
 
   return (
     <div className="space-y-6">
@@ -69,7 +69,7 @@ export default async function CoursesPage({
             <Link
               key={c.id}
               href={`/courses/${c.slug}`}
-              className="roup block rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md"
+              className="group block rounded-xl border border-gray-200 bg-white p-6 shadow-sm transition hover:shadow-md"
             >
               <h2
                 className="text-2xl font-semibold group-hover:underline"
