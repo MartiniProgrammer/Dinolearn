@@ -29,11 +29,19 @@ export default async function CoursesPage({
     ];
   }
 
-  const courses: CourseCard[] = await prisma.course.findMany({
-    where,
-    orderBy: { order: "asc" },
-    select: { id: true, slug: true, title: true, summary: true, color: true }
-  });
+  const courses: CourseCard[] = process.env.DATABASE_URL
+    ? await prisma.course.findMany({
+        where,
+        orderBy: { order: "asc" },
+        select: {
+          id: true,
+          slug: true,
+          title: true,
+          summary: true,
+          color: true
+        }
+      })
+    : [];
 
   return (
     <div className="space-y-4">
