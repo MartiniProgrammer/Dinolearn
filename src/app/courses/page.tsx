@@ -6,7 +6,7 @@ type CourseCard = {
   id: string;
   slug: string;
   title: string;
-  summary: string | null;
+  summary: string;
   color: string | null;
 };
 
@@ -15,20 +15,22 @@ export default async function CoursesPage({
 }: {
   searchParams?: { q?: string };
 }) {
-  const query = searchParams?.q ?? "";
+  const query = searchParams?.q?.trim();
+
+  const where: {
+    isPublished: boolean;
+    OR?: { title?: { contains: string; mode: "insensitive" }; summary?: { contains: string; mode: "insensitive" } }[];
+  } = { isPublished: true };
+
+  if (query) {
+    where.OR = [
+      { title: { contains: query, mode: "insensitive" } },
+      { summary: { contains: query, mode: "insensitive" } }
+    ];
+  }
 
   const courses: CourseCard[] = await prisma.course.findMany({
-    where: {
-      isPublished: true,
-      ...(query
-        ? {
-            OR: [
-              { title: { contains: query, mode: "insensitive" } },
-              { summary: { contains: query, mode: "insensitive" } }
-            ]
-          }
-        : {})
-    },
+    where,
     orderBy: { order: "asc" },
     select: { id: true, slug: true, title: true, summary: true, color: true }
   });
