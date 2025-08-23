@@ -87,15 +87,15 @@ export default async function CourseDetail({
           <ul className="space-y-2">
             {m.lessons.map((l: LessonCard) => (
               <li key={l.id}>
-                <link
+                <Link
                   className="block rounded-md border border-gray-200 p-3 hover:bg-gray-50"
                   href={`/lesson/${l.slug}`}
                 >
-                  {l.title}
-                </a>
-                {l.hasQuiz && (
-                  <span className="text-sm text-gray-500"> · quiz</span>
-                )}
+                  <span className="font-medium">{l.title}</span>
+                  {l.hasQuiz && (
+                    <span className="ml-2 text-sm text-gray-500">Quiz</span>
+                  )}
+                </Link>
               </li>
             ))}
           </ul>
