@@ -7,7 +7,7 @@ export default function HomePage() {
         href="/courses"
         className="px-6 py-3 bg-green-500 text-white rounded-2xl shadow hover:bg-green-600"
       >
-        Begin met C1: Inleiding tot Dinosaurussen
+        Bekijk alle cursussen
       </a>
     </div>
   );

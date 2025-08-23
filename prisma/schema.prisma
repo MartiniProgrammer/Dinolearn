@@ -1,0 +1,201 @@
+// Supabase/Postgres database
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+enum CourseLevel {
+  BEGINNER
+  INTERMEDIATE
+  ADVANCED
+}
+
+enum QuestionType {
+  SINGLE
+  MULTI
+  OPEN
+}
+
+enum LessonStatus {
+  NOT_STARTED
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum LabType {
+  PBDB
+  MODEL3D
+}
+
+model User {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  name      String?
+  image     String?
+  password  String?      // voor Credentials (MVP)
+  createdAt DateTime @default(now())
+
+  profile   Profile?
+  attempts  Attempt[]
+  lessons   UserLesson[]
+  srsCards  SRSCard[]
+  userBadges UserBadge[]
+  labSubs   LabSubmission[]
+}
+
+model Profile {
+  id            String   @id @default(cuid())
+  userId        String   @unique
+  user          User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  xp            Int      @default(0)
+  level         Int      @default(1)
+  hearts        Int      @default(5)
+  streakCount   Int      @default(0)
+  longestStreak Int      @default(0)
+  dailyGoal     Int      @default(20)
+  lastStudyAt   DateTime?
+}
+
+model Course {
+  id          String      @id @default(cuid())
+  slug        String      @unique
+  title       String
+  summary     String
+  level       CourseLevel
+  color       String
+  isPublished Boolean      @default(false)
+  order       Int          @default(0)
+  modules     Module[]
+}
+
+model Module {
+  id       String  @id @default(cuid())
+  courseId String
+  course   Course  @relation(fields: [courseId], references: [id], onDelete: Cascade)
+  title    String
+  order    Int     @default(0)
+  lessons  Lesson[]
+  @@index([courseId])
+}
+
+model Lesson {
+  id              String  @id @default(cuid())
+  moduleId        String
+  module          Module  @relation(fields: [moduleId], references: [id], onDelete: Cascade)
+  slug            String  @unique
+  title           String
+  content         Json    // of Text, hier JSON/MDX-achtig
+  durationMinutes Int     @default(10)
+  order           Int     @default(0)
+  hasQuiz         Boolean @default(true)
+
+  questions       QuizQuestion[]
+  attempts        Attempt[]
+  userLessons     UserLesson[]
+
+  @@index([moduleId])
+}
+
+model QuizQuestion {
+  id         String       @id @default(cuid())
+  lessonId   String
+  lesson     Lesson       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  prompt     String
+  type       QuestionType
+  explanation String?
+  options    QuizOption[]
+
+  srsCards   SRSCard[]
+  attempts   Attempt[]
+
+  @@index([lessonId])
+}
+
+model QuizOption {
+  id         String   @id @default(cuid())
+  questionId String
+  question   QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  text       String
+  isCorrect  Boolean @default(false)
+
+  @@index([questionId])
+}
+
+model Attempt {
+  id         String   @id @default(cuid())
+  userId     String
+  user       User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId   String
+  lesson     Lesson   @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  questionId String
+  question   QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  isCorrect  Boolean
+  createdAt  DateTime @default(now())
+  xpEarned   Int      @default(0)
+
+  @@index([userId])
+  @@index([lessonId])
+  @@index([questionId])
+}
+
+model UserLesson {
+  id         String       @id @default(cuid())
+  userId     String
+  user       User         @relation(fields: [userId], references: [id], onDelete: Cascade)
+  lessonId   String
+  lesson     Lesson       @relation(fields: [lessonId], references: [id], onDelete: Cascade)
+  status     LessonStatus @default(NOT_STARTED)
+  lastSeenAt DateTime?
+
+  @@unique([userId, lessonId])
+}
+
+model SRSCard {
+  id           String   @id @default(cuid())
+  userId       String
+  user         User     @relation(fields: [userId], references: [id], onDelete: Cascade)
+  questionId   String
+  question     QuizQuestion @relation(fields: [questionId], references: [id], onDelete: Cascade)
+  box          Int      @default(1)
+  nextReviewAt DateTime
+
+  @@unique([userId, questionId])
+  @@index([nextReviewAt])
+}
+
+model Badge {
+  id          String  @id @default(cuid())
+  code        String  @unique
+  title       String
+  description String
+  icon        String
+  users       UserBadge[]
+}
+
+model UserBadge {
+  id        String @id @default(cuid())
+  userId    String
+  user      User   @relation(fields: [userId], references: [id], onDelete: Cascade)
+  badgeId   String
+  badge     Badge  @relation(fields: [badgeId], references: [id], onDelete: Cascade)
+  earnedAt  DateTime @default(now())
+
+  @@unique([userId, badgeId])
+}
+
+model LabSubmission {
+  id       String  @id @default(cuid())
+  userId   String
+  user     User    @relation(fields: [userId], references: [id], onDelete: Cascade)
+  labType  LabType
+  payload  Json
+  score    Int?
+  feedback String?
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
