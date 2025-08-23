@@ -1,5 +1,6 @@
 "use client";
 import { signIn } from "next-auth/react";
+import { handleClientScriptLoad } from "next/script";
 import { useState } from "react";
 
 export default function SignInPage() {
