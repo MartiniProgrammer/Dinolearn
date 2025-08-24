@@ -40,7 +40,7 @@ export default function QuizPage({ params }: { params: { lessonId: string } }) {
     setShowAnswer(false);
 
     // volgende vraag ophalen
-    const nr = await fetch(`/quiz/next/${params.lessonId}/${q.id}`);
+    const nr = await fetch(`/quiz/${params.lessonId}/${q.id}`);
     const nd = await nr.json();
     if (nd.question) {
       setQ(nd.question);
