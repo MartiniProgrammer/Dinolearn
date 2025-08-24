@@ -10,14 +10,19 @@ export default function QuizPage({ params }: { params: { lessonId: string } }) {
   const [finished, setFinished] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
+  const [totalQuestions, setTotalQuestions] = useState(0);
   const [showAnswer, setShowAnswer] = useState(false);
 
-  // Haal de eerste vraag op
-    useEffect(() => {
+  // Haal de eerste vraag op + totaal aantal
+  useEffect(() => {
     (async () => {
       const r = await fetch(`/quiz/first/${params.lessonId}`);
       const d = await r.json();
       setQ(d.question);
+      setTotalQuestions(d.total ?? 0);
+      setTotalCount(0);
+      setCorrectCount(0);
+      setFinished(false);
     })();
   }, [params.lessonId]);
 
@@ -47,11 +52,15 @@ export default function QuizPage({ params }: { params: { lessonId: string } }) {
       setQ(null);
     }
   }
+  const progress = totalQuestions ? (totalCount / totalQuestions) * 100 : 0;
 
   if (finished) {
     return (
-      <div>
-        Quiz voltooid! Je scoorde {correctCount} van de {totalCount} vragen.
+      <div className="space-y-4">
+        <div className="h-2 w-full rounded bg-gray-200">
+          <div className="h-2 rounded bg-green-500" style={{ width: `${progress}%` }} />
+        </div>
+        <div>Quiz voltooid! Je scoorde {correctCount} van de {totalCount} vragen.</div>
       </div>
     );
   }
@@ -60,6 +69,9 @@ export default function QuizPage({ params }: { params: { lessonId: string } }) {
 
   return (
     <div className="space-y-4">
+      <div className="h-2 w-full rounded bg-gray-200">
+        <div className="h-2 rounded bg-green-500" style={{ width: `${progress}%` }} />
+      </div>
       <h1 className="text-2xl font-bold">{q.prompt}</h1>
       <div className="space-y-2">
         {q.options.map(o => (
