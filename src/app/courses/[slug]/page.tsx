@@ -29,15 +29,21 @@ export default async function CourseDetail({
 }: {
   params: { slug: string };
 }) {
-  const course: CourseDetail | null = await prisma.course.findUnique({
-    where: { slug: params.slug },
-    include: {
-      modules: {
-        orderBy: { order: "asc" },
-        include: { lessons: { orderBy: { order: "asc" } } },
+  let course: CourseDetail | null = null;
+  try {
+    course = await prisma.course.findUnique({
+      where: { slug: params.slug },
+      include: {
+        modules: {
+          orderBy: { order: "asc" },
+          include: { lessons: { orderBy: { order: "asc" } } },
+        },
       },
-    },
-  });
+    });
+  } catch (err) {
+    console.error("Failed to load course", err);
+    return <div>Er ging iets mis bij het laden van de cursus.</div>;
+  }
 
   if (!course) return <div>Niet gevonden</div>;
 
@@ -49,12 +55,17 @@ export default async function CourseDetail({
     ],
   };
 
-  const badges = badgeMap[params.slug]
-    ? await prisma.badge.findMany({
+  let badges = [] as { id: string; title: string; description: string; icon: string }[];
+  if (badgeMap[params.slug]) {
+    try {
+      badges = await prisma.badge.findMany({
         where: { code: { in: badgeMap[params.slug] } },
         select: { id: true, title: true, description: true, icon: true },
-      })
-    : [];
+      });
+    } catch (err) {
+      console.error("Failed to load badges", err);
+    }
+  }
 
   return (
     <div className="space-y-8">
