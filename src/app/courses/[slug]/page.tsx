@@ -2,6 +2,9 @@
 export const dynamic = "force-dynamic";
 import { prisma } from "@/lib/prisma";
 import Link from "next/link";
+import Image from "next/image";
+import { getServerSession } from "next-auth";
+import { authOptions } from "@/lib/auth";
 type LessonCard = {
   id: string;
   slug: string;
@@ -29,6 +32,7 @@ export default async function CourseDetail({
 }: {
   params: { slug: string };
 }) {
+  const session = await getServerSession(authOptions);
   let course: CourseDetail | null = null;
   try {
     course = await prisma.course.findUnique({
@@ -55,6 +59,10 @@ export default async function CourseDetail({
     ],
   };
 
+    const imageMap: Record<string, string> = {
+    "ankylosauridae-101": "/images/ankylosaur.svg",
+  };
+
   let badges = [] as { id: string; title: string; description: string; icon: string }[];
   if (badgeMap[params.slug]) {
     try {
@@ -64,6 +72,23 @@ export default async function CourseDetail({
       });
     } catch (err) {
       console.error("Failed to load badges", err);
+    }
+  }
+
+    let progress = 0;
+  if (session?.user?.email) {
+    const user = await prisma.user.findUnique({
+      where: { email: session.user.email },
+      select: { id: true },
+    });
+    if (user) {
+      const lessonIds = course.modules.flatMap((m) => m.lessons.map((l) => l.id));
+      if (lessonIds.length > 0) {
+        const completed = await prisma.userLesson.count({
+          where: { userId: user.id, lessonId: { in: lessonIds }, status: "COMPLETED" },
+        });
+        progress = Math.round((completed / lessonIds.length) * 100);
+      }
     }
   }
 
@@ -78,6 +103,16 @@ export default async function CourseDetail({
         </h1>
         <p className="text-gray-700">{course.summary}</p>
       </header>
+
+      {imageMap[course.slug] && (
+        <Image
+          src={imageMap[course.slug]}
+          alt="Course illustration"
+          width={800}
+          height={300}
+          className="w-full rounded-md object-cover"
+        />
+      )}
 
       {badges.length > 0 && (
         <div className="rounded-lg border border-gray-200 bg-white p-4">
@@ -113,6 +148,16 @@ export default async function CourseDetail({
           </ul>
         </div>
       ))}
+
+      <div className="mt-8">
+        <div className="h-4 w-full rounded bg-gray-200">
+          <div
+            className="h-4 rounded bg-green-500 transition-all"
+            style={{ width: `${progress}%` }}
+          />
+        </div>
+        <p className="mt-1 text-sm text-gray-700">{progress}% voltooid</p>
+      </div>
     </div>
   );
 }

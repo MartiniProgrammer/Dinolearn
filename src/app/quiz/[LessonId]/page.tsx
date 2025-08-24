@@ -1,7 +1,7 @@
 "use client";
 import { useEffect, useState } from "react";
 
-type Q = { id: string; prompt: string; options: { id: string; text: string }[] };
+type Q = { id: string; prompt: string; options: { id: string; text: string; isCorrect?: boolean }[] };
 
 export default function QuizPage({ params }: { params: { lessonId: string } }) {
   const [q, setQ] = useState<Q | null>(null);
@@ -10,6 +10,7 @@ export default function QuizPage({ params }: { params: { lessonId: string } }) {
   const [finished, setFinished] = useState(false);
   const [correctCount, setCorrectCount] = useState(0);
   const [totalCount, setTotalCount] = useState(0);
+  const [showAnswer, setShowAnswer] = useState(false);
 
   // Haal de eerste vraag op
     useEffect(() => {
@@ -31,6 +32,7 @@ export default function QuizPage({ params }: { params: { lessonId: string } }) {
     setResult(d.isCorrect ? "Goed!" : "Helaas, fout");
     setTotalCount(t => t + 1);
     if (d.isCorrect) setCorrectCount(c => c + 1);
+    setShowAnswer(false);
 
     // volgende vraag ophalen
     const nr = await fetch(`/quiz/next/${params.lessonId}/${q.id}`);
@@ -39,6 +41,7 @@ export default function QuizPage({ params }: { params: { lessonId: string } }) {
       setQ(nd.question);
       setChosen([]);
       setResult("");
+      setShowAnswer(false);
     } else {
       setFinished(true);
       setQ(null);
@@ -75,6 +78,23 @@ export default function QuizPage({ params }: { params: { lessonId: string } }) {
         Bevestig
       </button>
       {result && <p className="text-lg">{result}</p>}
+            {result && !showAnswer && (
+        <button
+          onClick={() => setShowAnswer(true)}
+          className="bg-blue-500 text-white rounded-2xl px-4 py-2"
+        >
+          Toon antwoord
+        </button>
+      )}
+      {showAnswer && (
+        <ul className="text-sm text-gray-700">
+          {q.options
+            .filter((o) => o.isCorrect)
+            .map((o) => (
+              <li key={o.id}>{o.text}</li>
+            ))}
+        </ul>
+      )}
     </div>
   );
 }

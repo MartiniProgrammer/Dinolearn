@@ -256,26 +256,110 @@ async function main() {
                   questions: {
                     create: [
                       {
-                        prompt: "Tot welke grote groep behoren Ankylosauridae?",
-                        type: "SINGLE",
+                        prompt: "Which of the following groups are part of Ornithischia (\"bird-hipped\" dinosaurs)?",
+                        type: "MULTI",
                         options: {
                           create: [
-                            { text: "Theropoda (vleeseters)", isCorrect: false },
-                            { text: "Sauropoda (reuzen met lange nek)", isCorrect: false },
-                            { text: "Ornithischia (vogelbekken)", isCorrect: true },
-                            { text: "Pterosauria (vliegende reptielen)", isCorrect: false }
+                            { text: "Armored lizards", isCorrect: true },
+                            { text: "Swift hunters", isCorrect: false },
+                            { text: "Heavy tails", isCorrect: false },
+                            { text: "Ancient flyers", isCorrect: false }
                           ]
                         }
                       },
                       {
-                        prompt: "Wat is een kenmerk van Ankylosauridae?",
+                        prompt: "When did ankylosaurus mainly live?",
                         type: "SINGLE",
                         options: {
                           create: [
-                            { text: "Lange nek en pilarenpoten", isCorrect: false },
-                            { text: "Knotsstaart en osteodermen", isCorrect: true },
-                            { text: "Vleugels en vlieghuid", isCorrect: false },
-                            { text: "Sikkelklauw op de voet", isCorrect: false }
+                            { text: "Triassic", isCorrect: false },
+                            { text: "Early Jurassic", isCorrect: false },
+                            { text: "Late Cretaceous", isCorrect: true },
+                            { text: "Paleogene", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which feature best distinguishes Ankylosauridae from other dinosaur groups?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Hollow bones for flight", isCorrect: false },
+                            { text: "Osteoderms (bony armor)", isCorrect: true },
+                            { text: "Sickle-shaped claws", isCorrect: false },
+                            { text: "Large sail on back", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What is the evolutionary relationship of Ankylosauridae?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Ornithischia → Thyreophora → Ankylosauria", isCorrect: true },
+                            { text: "Theropoda → Maniraptora → Ankylosauria", isCorrect: false },
+                            { text: "Ornithischia → Ceratopsia → Ankylosauria", isCorrect: false },
+                            { text: "Ornithischia → Hadrosauridae → Ankylosauria", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which of these groups are also Thyreophorans, like Ankylosauria?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Stegosaurs", isCorrect: true },
+                            { text: "Ceratopsians", isCorrect: false },
+                            { text: "Therizinosaurs", isCorrect: false },
+                            { text: "Sauropods", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Why are Ankylosauridae often called \"living tanks\"?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "They were carnivorous predators", isCorrect: false },
+                            { text: "They had heavy bony armor and low, wide bodies", isCorrect: true },
+                            { text: "They could run very fast", isCorrect: false },
+                            { text: "They had hollow bones", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which two continents have yielded the majority of Ankylosaurid fossils?",
+                        type: "MULTI",
+                        options: {
+                          create: [
+                            { text: "North America", isCorrect: true },
+                            { text: "Africa", isCorrect: false },
+                            { text: "Asia", isCorrect: true },
+                            { text: "Antarctica", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which evolutionary trend is true for Ankylosauridae during the Cretaceous?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Loss of armor plates", isCorrect: false },
+                            { text: "Development of tail clubs", isCorrect: true },
+                            { text: "Becoming bipedal", isCorrect: false },
+                            { text: "Reduction in body size", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which statement about Ankylosauridae evolution is correct?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "They were early Triassic reptiles", isCorrect: false },
+                            { text: "They diverged from Stegosaurs but developed heavier armor", isCorrect: true },
+                            { text: "They are closely related to Pterosaurs", isCorrect: false },
+                            { text: "They lived mainly in aquatic habitats", isCorrect: false }
                           ]
                         }
                       }
@@ -299,26 +383,122 @@ async function main() {
                   questions: {
                     create: [
                       {
-                        prompt: "Waaruit bestaat het pantser?",
+                        prompt: "What are osteoderms?",
                         type: "SINGLE",
                         options: {
                           create: [
-                            { text: "Vergrote schubben zonder bot", isCorrect: false },
-                            { text: "Benige osteodermen", isCorrect: true },
-                            { text: "Keratinelagen zonder bot", isCorrect: false },
-                            { text: "Externe ribben", isCorrect: false }
+                            { text: "External scales", isCorrect: false },
+                            { text: "Bony plates in the skin", isCorrect: true },
+                            { text: "Modified teeth", isCorrect: false },
+                            { text: "Hollow bones", isCorrect: false }
                           ]
                         }
                       },
                       {
-                        prompt: "Welke functie had de staartknots waarschijnlijk vooral?",
+                        prompt: "Which part of the Ankylosaurid body carried the tail club?",
                         type: "SINGLE",
                         options: {
                           create: [
-                            { text: "Thermoregulatie", isCorrect: false },
-                            { text: "Voortplanting", isCorrect: false },
-                            { text: "Aanval & verdediging (klap)", isCorrect: true },
-                            { text: "Zwemmen", isCorrect: false }
+                            { text: "Neck", isCorrect: false },
+                            { text: "Tail", isCorrect: true },
+                            { text: "Back", isCorrect: false },
+                            { text: "Forelimbs", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What function did the tail club likely serve?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Display", isCorrect: false },
+                            { text: "Defense", isCorrect: true },
+                            { text: "Thermoregulation", isCorrect: false },
+                            { text: "Egg protection", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What evidence shows that Ankylosaur armor varied by species?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Different sizes of osteoderms", isCorrect: true },
+                            { text: "Tail feathers", isCorrect: false },
+                            { text: "Lack of skull bones", isCorrect: false },
+                            { text: "Wing shape", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which bones stiffened the tail to support a club?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Cervical ribs", isCorrect: false },
+                            { text: "Caudal vertebrae", isCorrect: true },
+                            { text: "Forelimbs", isCorrect: false },
+                            { text: "Gastralia", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Why might the armor of Ankylosauridae be considered 'modular'?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Armor plates could vary in arrangement", isCorrect: true },
+                            { text: "They shed plates annually", isCorrect: false },
+                            { text: "Armor was not bony", isCorrect: false },
+                            { text: "Armor only covered the legs", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which part of the skull was heavily armored in Ankylosaurs?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Snout and eyes", isCorrect: true },
+                            { text: "Jaw", isCorrect: false },
+                            { text: "Braincase", isCorrect: false },
+                            { text: "Teeth", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What evidence suggests Ankylosaurs were herbivores?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Blunt, leaf-shaped teeth", isCorrect: true },
+                            { text: "Large carnivorous claws", isCorrect: false },
+                            { text: "Gastroliths", isCorrect: false },
+                            { text: "Lack of teeth", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Why were Ankylosaurs' bodies low and wide?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "To swim easily", isCorrect: false },
+                            { text: "To stabilize their armored weight", isCorrect: true },
+                            { text: "To jump higher", isCorrect: false },
+                            { text: "To climb trees", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What modern animal shows similar armor adaptation to Ankylosaurs?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Pangolins", isCorrect: true },
+                            { text: "Bats", isCorrect: false },
+                            { text: "Frogs", isCorrect: false },
+                            { text: "Dolphins", isCorrect: false }
                           ]
                         }
                       }
@@ -343,26 +523,122 @@ async function main() {
                   questions: {
                     create: [
                       {
-                        prompt: "Wat aten ankylosauriden vooral?",
+                        prompt: "What was the primary diet of Ankylosauridae?",
                         type: "SINGLE",
                         options: {
                           create: [
-                            { text: "Vlees", isCorrect: false },
-                            { text: "Vruchten hoog in bomen", isCorrect: false },
-                            { text: "Laag groeiende planten", isCorrect: true },
-                            { text: "Ongewervelden", isCorrect: false }
+                            { text: "Small mammals", isCorrect: false },
+                            { text: "Low-lying plants", isCorrect: true },
+                            { text: "Fish", isCorrect: false },
+                            { text: "Insects", isCorrect: false }
                           ]
                         }
                       },
                       {
-                        prompt: "Tegen wie bood het pantser vooral bescherming?",
+                        prompt: "Which predator group posed the biggest threat to Ankylosaurs?",
                         type: "SINGLE",
                         options: {
                           create: [
-                            { text: "Sauropoden", isCorrect: false },
-                            { text: "Tyrannosauriden", isCorrect: true },
-                            { text: "Pterosauriërs", isCorrect: false },
-                            { text: "Placodonten", isCorrect: false }
+                            { text: "Ceratopsians", isCorrect: false },
+                            { text: "Tyrannosaurids", isCorrect: true },
+                            { text: "Pterosaurs", isCorrect: false },
+                            { text: "Sauropods", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Why did Ankylosaurs likely stay close to the ground?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Their body structure made them low browsers", isCorrect: true },
+                            { text: "They could not lift their heads", isCorrect: false },
+                            { text: "They were aquatic", isCorrect: false },
+                            { text: "To avoid predators completely", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What defense strategies did Ankylosaurs use?",
+                        type: "MULTI",
+                        options: {
+                          create: [
+                            { text: "Camouflage", isCorrect: true },
+                            { text: "Speed", isCorrect: false },
+                            { text: "Tail clubs", isCorrect: true },
+                            { text: "Venom", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which environment did Ankylosaurs prefer?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Open habitats like floodplains", isCorrect: true },
+                            { text: "Deep ocean", isCorrect: false },
+                            { text: "Mountain peaks", isCorrect: false },
+                            { text: "Arctic tundra", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What does their heavy build suggest about their speed?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "They were slow movers", isCorrect: true },
+                            { text: "They could sprint", isCorrect: false },
+                            { text: "They were aquatic swimmers", isCorrect: false },
+                            { text: "They glided", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Why might Ankylosaurs live in groups?",
+                        type: "MULTI",
+                        options: {
+                          create: [
+                            { text: "To help hunt prey", isCorrect: false },
+                            { text: "To protect against predators", isCorrect: true },
+                            { text: "To build nests together", isCorrect: true },
+                            { text: "To swim in schools", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which sense may have been especially important for Ankylosaurs?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Smell", isCorrect: true },
+                            { text: "Echolocation", isCorrect: false },
+                            { text: "UV vision", isCorrect: false },
+                            { text: "Heat pits", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which of these behaviors is likely but unproven in Ankylosaurs?",                        
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Tail-swinging combat", isCorrect: true },
+                            { text: "Flight", isCorrect: false },
+                            { text: "Nest parasitism", isCorrect: false },
+                            { text: "Hibernation", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What does their body shape suggest about their feeding range?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Low vegetation browsing", isCorrect: true },
+                            { text: "Canopy leaves", isCorrect: false },
+                            { text: "Hunting prey", isCorrect: false },
+                            { text: "Digging burrows", isCorrect: false }
                           ]
                         }
                       }
@@ -371,7 +647,7 @@ async function main() {
                 },
                 {
                   slug: "key-genera",
-                  title: "Belangrijke Geslachten",
+                  title: "Important species",
                   durationMinutes: 8,
                   order: 4,
                   hasQuiz: true,
@@ -387,14 +663,122 @@ async function main() {
                   questions: {
                     create: [
                       {
-                        prompt: "Welk geslacht is beroemd om een zeer zware staartknots in het Laat-Krijt van Noord-Amerika?",
+                        prompt: "Which genus is the most famous Ankylosaurid from North America?",
                         type: "SINGLE",
                         options: {
                           create: [
                             { text: "Pinacosaurus", isCorrect: false },
-                            { text: "Ankylosaurus", isCorrect: true },
-                            { text: "Euoplocephalus", isCorrect: false },
+                            { text: "Euoplecephalus", isCorrect: true },
+                            { text: "Ankylosaurus", isCorrect: false },
                             { text: "Stegouros", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which genus is best known from Asia with many juvenile skeletons?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Pinacosaurus", isCorrect: true },
+                            { text: "Ankylosaurus", isCorrect: false },
+                            { text: "Euoplocephalus", isCorrect: false },
+                            { text: "Triceratops", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which genus had complex nasal passages and is well studied?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Ankylosaurus", isCorrect: false },
+                            { text: "Euoplocephalus", isCorrect: true },
+                            { text: "Pinacosaurus", isCorrect: false },
+                            { text: "Pachycephalosaurus", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What is a diagnostic feature of Ankylosaurus?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Large tail club", isCorrect: true },
+                            { text: "Horned frill", isCorrect: false },
+                            { text: "Tall neural spines", isCorrect: false },
+                            { text: "Long neck", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which genera are Ankylosaurids?",
+                        type: "MULTI",
+                        options: {
+                          create: [
+                            { text: "Ankylosaurus", isCorrect: true },
+                            { text: "Stegosaurus", isCorrect: false },
+                            { text: "Pinacosaurus", isCorrect: true },
+                            { text: "Euoplocephalus", isCorrect: true }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Where were Pinacosaurus fossils mostly found?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Canada", isCorrect: false },
+                            { text: "Mongolia", isCorrect: true },
+                            { text: "Argentina", isCorrect: false },
+                            { text: "Europe", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which feature makes Euoplocephalus unique among Ankylosaurs?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Complex nasal sinuses", isCorrect: true },
+                            { text: "Wing bones", isCorrect: false },
+                            { text: "Aquatic adaptations", isCorrect: false },
+                            { text: "Gigantic size", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which Ankylosaurid is often shown with one of the largest clubs?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Ankylosaurus", isCorrect: true },
+                            { text: "Pinacosaurus", isCorrect: false },
+                            { text: "Stegosaurus", isCorrect: false },
+                            { text: "Ceratops", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which two genera are iconic Late Cretaceous Ankylosaurids of North America?",
+                        type: "MULTI",
+                        options: {
+                          create: [
+                            { text: "Ankylosaurus", isCorrect: true },
+                            { text: "Euoplocephalus", isCorrect: true },
+                            { text: "Pinacosaurus", isCorrect: false },
+                            { text: "Triceratops", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which feature unites all Ankylosaurid genera?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Osteoderm armor", isCorrect: true },
+                            { text: "Sail on back", isCorrect: false },
+                            { text: "Crest on skull", isCorrect: false },
+                            { text: "Flight ability", isCorrect: false }
                           ]
                         }
                       }
@@ -403,29 +787,137 @@ async function main() {
                 },
                 {
                   slug: "fossils-discovery",
-                  title: "Fossielen & Ontdekking",
+                  title: "Fossils and their discovery",
                   durationMinutes: 8,
                   order: 5,
                   hasQuiz: true,
                   content: {
                     type: "md",
                     body: [
-                      "Grote vondsten in **Dinosaur Provincial Park** (Canada) en Mongolië (Gobi).",
+                      "Grote vondsten in Dinosaur Provincial Park (Canada) en Mongolië (Gobi).",
                       "Osteodermen fossiliseren goed; staartknotsen zijn diagnostisch.",
-                      "**Onderzoek:** CT-scans, histologie van platen, biomechanica van staartslagen."
+                      "Onderzoek: CT-scans, histologie van platen, biomechanica van staartslagen."
                     ]
                   },
                   questions: {
                     create: [
                       {
-                        prompt: "Waarom worden osteodermen relatief vaak gevonden?",
+                        prompt: "Where were many Ankylosaur fossils discovered in North America?",
                         type: "SINGLE",
                         options: {
                           create: [
-                            { text: "Ze zijn van zacht weefsel", isCorrect: false },
-                            { text: "Ze zijn benig en fossiliseren goed", isCorrect: true },
-                            { text: "Ze drijven en spoelen aan", isCorrect: false },
-                            { text: "Ze lossen op", isCorrect: false }
+                            { text: "Dinosaur Provincial Park (Canada)", isCorrect: true },
+                            { text: "Gobi Desert", isCorrect: false },
+                            { text: "Patagonia", isCorrect: false },
+                            { text: "South Africa", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which region in Asia is famous for Ankylosaur fossils?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Siberia", isCorrect: false },
+                            { text: "Mongolia (Gobi Desert)", isCorrect: true },
+                            { text: "Japan", isCorrect: false },
+                            { text: "India", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What part of the Ankylosaur body fossilizes especially well?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Osteoderms (armor plates)", isCorrect: true },
+                            { text: "Cartilage", isCorrect: false },
+                            { text: "Muscles", isCorrect: false },
+                            { text: "Feathers", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Why do tail clubs fossilize relatively well?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "They are made of cartilage", isCorrect: false },
+                            { text: "They are large and bony", isCorrect: true },
+                            { text: "They are preserved in amber", isCorrect: false },
+                            { text: "They float", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What tools do scientists use to study Ankylosaur armor internally?",
+                        type: "MULTI",
+                        options: {
+                          create: [
+                            { text: "CT scans", isCorrect: true },
+                            { text: "X-rays", isCorrect: true },
+                            { text: "Ultrasound", isCorrect: false },
+                            { text: "None", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What does histology of osteoderms reveal?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Growth patterns", isCorrect: true },
+                            { text: "Diet", isCorrect: false },
+                            { text: "Migration routes", isCorrect: false },
+                            { text: "DNA sequences", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which type of environment preserved many Ankylosaurs?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Desert dunes", isCorrect: true },
+                            { text: "Coral reefs", isCorrect: false },
+                            { text: "Ice sheets", isCorrect: false },
+                            { text: "Lava fields", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which fossil evidence suggests Ankylosaurs had keratin on armor?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Impressions on osteoderms", isCorrect: true },
+                            { text: "DNA fragments", isCorrect: false },
+                            { text: "Eggs", isCorrect: false },
+                            { text: "Skin pigment", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What makes Ankylosaur fossils challenging to study?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Plates are fused and heavy", isCorrect: true },
+                            { text: "They dissolve quickly", isCorrect: false },
+                            { text: "They are tiny", isCorrect: false },
+                            { text: "They are radioactive", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Why are juvenile Ankylosaurs important to discovery?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "They show growth changes in armor", isCorrect: true },
+                            { text: "They are easier to find", isCorrect: false },
+                            { text: "They were aquatic", isCorrect: false },
+                            { text: "They are more complete", isCorrect: false }
                           ]
                         }
                       }
@@ -447,14 +939,122 @@ async function main() {
                   questions: {
                     create: [
                       {
-                        prompt: "Welke combinatie beschrijft Ankylosauridae het best?",
+                        prompt: "Which three features best describe Ankylosauridae?",
                         type: "SINGLE",
                         options: {
                           create: [
-                            { text: "Vleugels, holle botten, piscivoor", isCorrect: false },
-                            { text: "Pantser, knotsstaart, laag plantaardig dieet", isCorrect: true },
-                            { text: "Sikkelklauw, veren, warmbloedig", isCorrect: false },
-                            { text: "Zwemvliezen, tandplaten, marien", isCorrect: false }
+                            { text: "Armor, tail club, herbivory", isCorrect: true },
+                            { text: "Wings, claws, feathers", isCorrect: false },
+                            { text: "Aquatic lifestyle", isCorrect: false },
+                            { text: "Hollow bones", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What was their primary diet?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Carnivory", isCorrect: false },
+                            { text: "Low plants", isCorrect: true },
+                            { text: "Insects", isCorrect: false },
+                            { text: "Plankton", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which predator likely forced Ankylosaurs to evolve heavy defense?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Tyrannosaurids", isCorrect: true },
+                            { text: "Ceratopsians", isCorrect: false },
+                            { text: "Pterosaurs", isCorrect: false },
+                            { text: "Sauropods", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What modern animal is most similar in armor adaptation?",
+                        type: "MULTI",
+                        options: {
+                          create: [
+                            { text: "Pangolin", isCorrect: true },
+                            { text: "Crocodile", isCorrect: true },
+                            { text: "Elephant", isCorrect: false },
+                            { text: "Bat", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which continents yielded the most Ankylosaur fossils?",
+                        type: "MULTI",
+                        options: {
+                          create: [
+                            { text: "Asia", isCorrect: true },
+                            { text: "Europe", isCorrect: false },
+                            { text: "North America", isCorrect: true },
+                            { text: "Australia", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What structure stiffened the tail for club use?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Caudal vertebrae", isCorrect: true },
+                            { text: "Wing bones", isCorrect: false },
+                            { text: "Skull plates", isCorrect: false },
+                            { text: "Teeth", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which genera are Ankylosauridae?",
+                        type: "MULTI",
+                        options: {
+                          create: [
+                            { text: "Ankylosaurus", isCorrect: true },
+                            { text: "Euoplocephalus", isCorrect: true },
+                            { text: "Pinacosaurus", isCorrect: true },
+                            { text: "Velociraptor", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What is the role of CT scanning fossils?",
+                        type: "MULTI",
+                        options: {
+                          create: [
+                            { text: "Reveals internal bone structure", isCorrect: true },
+                            { text: "Finds hidden cavities", isCorrect: true },
+                            { text: "Measures color", isCorrect: false },
+                            { text: "Detects DNA", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "Which evolutionary group do Ankylosaurs belong to?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Ornithischia", isCorrect: true },
+                            { text: "Theropoda", isCorrect: false },
+                            { text: "Sauropoda", isCorrect: false },
+                            { text: "Pterosauria", isCorrect: false }
+                          ]
+                        }
+                      },
+                      {
+                        prompt: "What is their nickname due to their body plan?",
+                        type: "SINGLE",
+                        options: {
+                          create: [
+                            { text: "Living tanks", isCorrect: true },
+                            { text: "Flying lizards", isCorrect: false },
+                            { text: "Sea dragons", isCorrect: false },
+                            { text: "Forest giants", isCorrect: false }
                           ]
                         }
                       }
