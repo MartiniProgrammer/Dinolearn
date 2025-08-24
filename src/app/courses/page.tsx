@@ -30,8 +30,9 @@ export default async function CoursesPage({
     ];
   }
 
-  const courses: CourseCard[] = await prisma.course
-    .findMany({
+  let courses: CourseCard[] = [];
+  try {
+    courses = await prisma.course.findMany({
       where,
       orderBy: { order: "asc" },
       select: {
@@ -41,8 +42,16 @@ export default async function CoursesPage({
         summary: true,
         color: true,
       },
-    })
-    .catch(() => [] as CourseCard[]);
+    });
+  } catch (err) {
+    console.error("Failed to load courses", err);
+    return (
+      <div className="space-y-6">
+        <h1 className="text-4xl font-bold">Cursussen</h1>
+        <p className="text-red-600">Er ging iets mis bij het laden van de cursussen.</p>
+      </div>
+    );
+  }
 
   return (
     <div className="space-y-6">
